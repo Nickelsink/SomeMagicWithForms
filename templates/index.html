@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>No Input Form</title>
+</head>
+<body>
+    <table>
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Возраст</th>
+            <th>Разрешение</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for man in people %}
+        <tr>
+            <td>
+                {{ man.name }}
+            </td>
+            <td>
+                {{ man.age }}
+            </td>
+            <td>
+                {{ man.is_allowed }}
+            </td>
+            <td>
+                <form method="post" action={% url "second_view" %}>
+                    {% csrf_token %}
+                    <input hidden name="id" value={{ man.id }}>
+                    <button type="submit">Верифицировать</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</body>
+</html>
